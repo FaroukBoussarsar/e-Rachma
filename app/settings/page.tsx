@@ -19,12 +19,12 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Sidebar - hidden on mobile */}
-      <div className="fixed left-0 top-0 hidden h-screen w-16 border-r bg-background p-3 md:block">
+      <div className="fixed left-0 top-0 hidden h-screen border-r bg-background p-4 md:block md:w-16 lg:w-72">
         <MainNav />
       </div>
 
       {/* Main content */}
-      <div className="md:pl-16">
+      <div className="md:pl-16 lg:pl-72">
         <main className="container mx-auto p-4 pb-20 md:p-8 md:pb-8">
           <div className="mb-8 flex items-center justify-between">
             <h1 className="text-2xl font-bold">Business Settings</h1>
