@@ -22,12 +22,20 @@ export default function Home() {
             <Bell className="h-6 w-6" />
           </div>
 
-          <Tabs defaultValue="all" className="mb-8">
-            <TabsList>
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="branch-a">Branch A</TabsTrigger>
-              <TabsTrigger value="branch-b">Branch B</TabsTrigger>
-            </TabsList>
+          <Tabs defaultValue="all">
+            {({ activeTab, setActiveTab }) => (
+              <TabsList activeTab={activeTab} setActiveTab={setActiveTab}>
+                <TabsTrigger value="all" activeTab={activeTab} setActiveTab={setActiveTab}>
+                  All
+                </TabsTrigger>
+                <TabsTrigger value="branch-a" activeTab={activeTab} setActiveTab={setActiveTab}>
+                  Branch A
+                </TabsTrigger>
+                <TabsTrigger value="branch-b" activeTab={activeTab} setActiveTab={setActiveTab}>
+                  Branch B
+                </TabsTrigger>
+              </TabsList>
+            )}
           </Tabs>
 
           <div className="mb-8">

@@ -28,12 +28,20 @@ export default function StockPage() {
         <main className="container mx-auto p-4 pb-20 md:p-8 md:pb-8">
           <h1 className="mb-8 text-2xl font-bold">Stock Management</h1>
 
-          <Tabs defaultValue="all" className="mb-8">
-            <TabsList>
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="branch-a">Branch A</TabsTrigger>
-              <TabsTrigger value="branch-b">Branch B</TabsTrigger>
-            </TabsList>
+          <Tabs defaultValue="all">
+            {({ activeTab, setActiveTab }) => (
+              <TabsList activeTab={activeTab} setActiveTab={setActiveTab}>
+                <TabsTrigger value="all" activeTab={activeTab} setActiveTab={setActiveTab}>
+                  All
+                </TabsTrigger>
+                <TabsTrigger value="branch-a" activeTab={activeTab} setActiveTab={setActiveTab}>
+                  Branch A
+                </TabsTrigger>
+                <TabsTrigger value="branch-b" activeTab={activeTab} setActiveTab={setActiveTab}>
+                  Branch B
+                </TabsTrigger>
+              </TabsList>
+            )}
           </Tabs>
 
           <div className="mb-8">

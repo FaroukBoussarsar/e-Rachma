@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
@@ -41,9 +40,19 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button';
+    if (asChild && props.children && React.isValidElement(props.children)) {
+      // Extract children to handle separately
+      const { children, ...buttonProps } = props;
+      
+      return React.cloneElement(children, {
+        ...buttonProps,
+        className: cn(buttonVariants({ variant, size, className }), children.props.className),
+        ref: mergeRefs(ref, (children as any).ref),
+      } as React.ComponentProps<any>);
+    }
+    
     return (
-      <Comp
+      <button
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
@@ -52,5 +61,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 Button.displayName = 'Button';
+
+// Helper function to merge refs
+const mergeRefs = (...refs: React.Ref<any>[]) => {
+  return (value: any) => {
+    refs.forEach((ref) => {
+      if (typeof ref === "function") {
+        ref(value);
+      } else if (ref != null) {
+        (ref as React.MutableRefObject<any>).current = value;
+      }
+    });
+  };
+};
 
 export { Button, buttonVariants };
